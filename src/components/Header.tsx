@@ -243,28 +243,19 @@ const styles = StyleSheet.create({
 
  container: {
   position: 'absolute',
-
   top: 0,
-
   zIndex: 999,
-
   width: '100%',
-
   flexDirection: 'row',
-
   justifyContent: 'space-between',
   alignItems: 'center',
-
   paddingHorizontal: 40,
-
   height: 80,
-
   borderBottomWidth: 1,
 },
 
   logo: {
     fontSize: 26,
-
     fontWeight: '900',
   },
 
