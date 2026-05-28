@@ -1,14 +1,26 @@
 {
   "expo": {
     "name": "Vikash Roy | Portfolio",
-    "slug": "Vikash Roy | Portfolio",
+
+    "slug": "vikash-roy-portfolio",
+
     "version": "1.0.0",
+
     "orientation": "portrait",
+
     "icon": "./assets/icon.png",
+
     "userInterfaceStyle": "light",
+
+    "platforms": [
+      "android",
+      "web"
+    ],
+
     "ios": {
       "supportsTablet": true
     },
+
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -16,10 +28,13 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+
       "predictiveBackGestureEnabled": false
     },
+
     "web": {
       "favicon": "./assets/favicon.png",
+
       "bundler": "metro"
     }
   }
