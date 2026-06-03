@@ -160,6 +160,9 @@ function ProjectCard({
 
       <TouchableOpacity
         style={styles.linkRow}
+         onPress={() =>
+    Linking.openURL(item.url)
+  }
       >
 
         <Text

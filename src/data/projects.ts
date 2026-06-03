@@ -89,6 +89,9 @@ export const projects = [
 
     github:
       'https://github.com/vikashroy276',
+
+    url:
+      'https://dashboard.ivepos.com/',
   },
 
 ];
