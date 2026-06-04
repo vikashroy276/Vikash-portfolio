@@ -40,7 +40,7 @@ export const projects = [
   },
 
   {
-    title: 'BLETMS',
+    title: 'Bluetooth Track Management System',
 
     description:
       'Bluetooth Track Management System for connecting BLE devices, scanning tags, locating devices and monitoring battery power status.',
@@ -93,5 +93,27 @@ export const projects = [
     url:
       'https://dashboard.ivepos.com/',
   },
+
+  {
+    title: 'Manitou',
+
+    description: 'Android application for automated Zebra printer connectivity, QR code generation, and wireless label printing using Kotlin and Bluetooth technology.',
+
+    tech: 'Kotlin • Bluetooth Manager,Coroutines & Flow, Zebra SDK,Barcode Scanner Integration,Zebra SDK ',
+
+    github: 'https://github.com/vikashroy276'
+  },
+  {
+
+    title: 'Nippon Inventory Management System',
+
+    description: 'Built an Android-based inventory verification system that imports CSV files into a local Room database, generates registration validation codes, verifies PO numbers through QR scanning, stores transaction data offline, and syncs validated records to remote servers using Retrofit.',
+
+    tech: ' jetpack compose , hilt , Room Database, MVVM Architecture',
+
+    github: 'https://github.com/vikashroy276'
+
+  }
+
 
 ];
