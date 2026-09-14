@@ -102,7 +102,7 @@ export default function Header() {
       const link =
         document.createElement('a');
 
-      link.href = '/resume.pdf';
+      link.href = '/Vikash_Kumar_Resume.pdf';
 
       link.download =
         'Vikash_Kumar_Resume.pdf';

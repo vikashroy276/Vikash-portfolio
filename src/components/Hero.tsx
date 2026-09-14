@@ -157,7 +157,7 @@ export default function Hero() {
             },
           ]}
         >
-          3.5 Years of Experience
+          3 Years of Experience
         </Text>
 
         {/* BUTTON */}

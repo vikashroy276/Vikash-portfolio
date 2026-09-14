@@ -17,7 +17,7 @@ export default function Resume() {
 
       <View style={styles.card}>
         <Text style={styles.title}>
-          Senior Android Developer
+          Android Developer
         </Text>
 
         <Text style={styles.company}>
