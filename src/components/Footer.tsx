@@ -17,6 +17,10 @@ import {
 } from 'react-icons/fa';
 
 import {
+  useNavigation,
+} from '@react-navigation/native';
+
+import {
   useThemeCustom,
 } from '../context/ThemeContext';
 
@@ -24,16 +28,15 @@ export default function Footer() {
 
   const { theme } = useThemeCustom();
 
+  const navigation = useNavigation<any>();
+
   return (
     <View
       style={[
         styles.container,
         {
-          backgroundColor:
-            theme.background,
-
-          borderTopColor:
-            theme.border,
+          backgroundColor: theme.background,
+          borderTopColor: theme.border,
         },
       ]}
     >
@@ -60,7 +63,62 @@ export default function Footer() {
 
       </View>
 
-      {/* RIGHT SIDE */}
+
+      {/* POLICY LINKS */}
+
+      <View style={styles.policyContainer}>
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('PrivacyPolicy')
+          }
+        >
+          <Text
+            style={[
+              styles.policyText,
+              {
+                color: theme.subText,
+              },
+            ]}
+          >
+            Privacy Policy
+          </Text>
+        </TouchableOpacity>
+
+
+        <Text
+          style={[
+            styles.separator,
+            {
+              color: theme.border,
+            },
+          ]}
+        >
+          |
+        </Text>
+
+
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Terms')
+          }
+        >
+          <Text
+            style={[
+              styles.policyText,
+              {
+                color: theme.subText,
+              },
+            ]}
+          >
+            Terms & Conditions
+          </Text>
+        </TouchableOpacity>
+
+      </View>
+
+
+      {/* RIGHT SIDE - SOCIAL ICONS */}
 
       <View style={styles.socialContainer}>
 
@@ -74,13 +132,12 @@ export default function Footer() {
             )
           }
         >
-
           <FaWhatsapp
             size={26}
             color="#25D366"
           />
-
         </TouchableOpacity>
+
 
         {/* GITHUB */}
 
@@ -92,13 +149,12 @@ export default function Footer() {
             )
           }
         >
-
           <FaGithub
             size={26}
             color={theme.text}
           />
-
         </TouchableOpacity>
+
 
         {/* LINKEDIN */}
 
@@ -110,13 +166,12 @@ export default function Footer() {
             )
           }
         >
-
           <FaLinkedin
             size={26}
             color="#0A66C2"
           />
-
         </TouchableOpacity>
+
 
         {/* INSTAGRAM */}
 
@@ -128,12 +183,10 @@ export default function Footer() {
             )
           }
         >
-
           <FaInstagram
             size={26}
             color="#E1306C"
           />
-
         </TouchableOpacity>
 
       </View>
@@ -142,20 +195,31 @@ export default function Footer() {
   );
 }
 
+
 const styles = StyleSheet.create({
 
   container: {
     flexDirection: 'row',
 
     justifyContent: 'space-between',
+
     alignItems: 'center',
 
     paddingHorizontal: 50,
+
     paddingTop: 20,
+
     paddingBottom: 20,
 
     borderTopWidth: 1,
+
+    flexWrap: 'wrap',
+
+    rowGap: 15,
   },
+
+
+  /* LEFT */
 
   leftSection: {
     flexDirection: 'row',
@@ -165,17 +229,47 @@ const styles = StyleSheet.create({
     gap: 14,
   },
 
+
   footerText: {
     fontSize: 16,
 
     fontWeight: '700',
   },
 
+
+  /* POLICY */
+
+  policyContainer: {
+    flexDirection: 'row',
+
+    alignItems: 'center',
+
+    justifyContent: 'center',
+  },
+
+
+  policyText: {
+    fontSize: 14,
+
+    fontWeight: '600',
+  },
+
+
+  separator: {
+    fontSize: 14,
+
+    marginHorizontal: 12,
+  },
+
+
+  /* SOCIAL */
+
   socialContainer: {
     flexDirection: 'row',
 
     alignItems: 'center',
   },
+
 
   socialButton: {
     marginLeft: 24,
