@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useRef, useEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -9,21 +8,24 @@ import {
 import Header from '../components/Header';
 import Hero from '../components/Hero';
 import About from '../components/About';
-import Skills from '../components/Skills';
 import Projects from '../components/Projects';
-import Journey from '../components/Journey';
-import Resume from '../components/Resume';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import FloatingIcons from '../context/FloatingIcons';
 
-import {
-  useThemeCustom,
-} from '../context/ThemeContext';
+import { useThemeCustom } from '../context/ThemeContext';
+import { ScrollProvider, useScroll } from '../context/ScrollContext';
+import { useResponsive } from '../hooks/useResponsive';
 
-export default function HomeScreen() {
-
+function HomeScreenContent() {
   const { theme } = useThemeCustom();
+  const { isMobile } = useResponsive();
+  const { setScrollViewRef, registerSection } = useScroll();
+  const scrollViewRef = useRef<ScrollView | null>(null);
+
+  useEffect(() => {
+    setScrollViewRef(scrollViewRef);
+  }, []);
 
   return (
     <View
@@ -34,54 +36,76 @@ export default function HomeScreen() {
         },
       ]}
     >
-
-      {/* HEADER */}
-
-      <Header />
-
-      {/* FLOATING ICONS */}
-
+      {/* FLOATING ICONS BACKGROUND */}
       <FloatingIcons />
 
-      {/* CONTENT */}
+      {/* FIXED HEADER */}
+      <Header />
 
+      {/* MAIN SCROLLABLE CONTENT */}
       <ScrollView
+        ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
         bounces={false}
+        contentContainerStyle={{
+          paddingTop: isMobile ? 80 : 100,
+        }}
+        scrollEventThrottle={16}
       >
-
-        <View style={{ marginBottom: 80 }}>
+        {/* HERO SECTION */}
+        <View
+          nativeID="hero"
+          onLayout={(e) => registerSection('hero', e.nativeEvent.layout.y)}
+          style={{ marginBottom: isMobile ? 50 : 80 }}
+        >
           <Hero />
         </View>
 
-        <View style={{ marginBottom: 80 }}>
+        {/* ABOUT SECTION */}
+        <View
+          nativeID="about"
+          onLayout={(e) => registerSection('about', e.nativeEvent.layout.y)}
+          style={{ marginBottom: isMobile ? 50 : 80 }}
+        >
           <About />
         </View>
 
-        <View style={{ marginBottom: 80 }}>
+        {/* PROJECTS SECTION */}
+        <View
+          nativeID="projects"
+          onLayout={(e) => registerSection('projects', e.nativeEvent.layout.y)}
+          style={{ marginBottom: isMobile ? 50 : 80 }}
+        >
           <Projects />
         </View>
 
-        {/* <Journey /> */}
-
-        {/* <Resume /> */}
-
-        <View style={{ marginBottom: 80 }}>
+        {/* CONTACT SECTION */}
+        <View
+          nativeID="contact"
+          onLayout={(e) => registerSection('contact', e.nativeEvent.layout.y)}
+          style={{ marginBottom: isMobile ? 40 : 80 }}
+        >
           <Contact />
         </View>
 
+        {/* FOOTER */}
         <Footer />
-
       </ScrollView>
-
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+export default function HomeScreen() {
+  return (
+    <ScrollProvider>
+      <HomeScreenContent />
+    </ScrollProvider>
+  );
+}
 
+const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: 'hidden',
   },
-
 });

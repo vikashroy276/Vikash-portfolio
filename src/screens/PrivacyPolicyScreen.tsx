@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 
 import { useThemeCustom } from '../context/ThemeContext';
+import { useResponsive } from '../hooks/useResponsive';
 
 export default function PrivacyPolicyScreen({ navigation }: any) {
   const { theme } = useThemeCustom();
+  const { isMobile } = useResponsive();
 
   const openEmail = () => {
     Linking.openURL('mailto:vikashroy276@gmail.com');
@@ -31,6 +33,7 @@ export default function PrivacyPolicyScreen({ navigation }: any) {
           {
             backgroundColor: theme.card,
             borderBottomColor: theme.border,
+            paddingHorizontal: isMobile ? 16 : 30,
           },
         ]}
       >
@@ -44,14 +47,14 @@ export default function PrivacyPolicyScreen({ navigation }: any) {
               { color: theme.primary },
             ]}
           >
-            ← Back
+            ←
           </Text>
         </TouchableOpacity>
 
         <Text
           style={[
             styles.headerTitle,
-            { color: theme.text },
+            { color: theme.text, fontSize: isMobile ? 18 : 22 },
           ]}
         >
           Privacy Policy
@@ -60,7 +63,13 @@ export default function PrivacyPolicyScreen({ navigation }: any) {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            paddingVertical: isMobile ? 20 : 50,
+            paddingHorizontal: isMobile ? 14 : 20,
+          },
+        ]}
       >
         <View
           style={[
@@ -68,13 +77,14 @@ export default function PrivacyPolicyScreen({ navigation }: any) {
             {
               backgroundColor: theme.card,
               borderColor: theme.border,
+              padding: isMobile ? 18 : 35,
             },
           ]}
         >
           <Text
             style={[
               styles.title,
-              { color: theme.primary },
+              { color: theme.primary, fontSize: isMobile ? 26 : 36 },
             ]}
           >
             Privacy Policy

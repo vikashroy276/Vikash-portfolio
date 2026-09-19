@@ -7,9 +7,11 @@ import {
 } from 'react-native';
 
 import { useThemeCustom } from '../context/ThemeContext';
+import { useResponsive } from '../hooks/useResponsive';
 
 export default function TermsScreen({ navigation }: any) {
   const { theme } = useThemeCustom();
+  const { isMobile } = useResponsive();
 
   return (
     <View
@@ -25,6 +27,7 @@ export default function TermsScreen({ navigation }: any) {
           {
             backgroundColor: theme.card,
             borderBottomColor: theme.border,
+            paddingHorizontal: isMobile ? 16 : 30,
           },
         ]}
       >
@@ -35,13 +38,13 @@ export default function TermsScreen({ navigation }: any) {
             { color: theme.primary },
           ]}
         >
-          ← Back
+          ←
         </Text>
 
         <Text
           style={[
             styles.headerTitle,
-            { color: theme.text },
+            { color: theme.text, fontSize: isMobile ? 18 : 22 },
           ]}
         >
           Terms & Conditions
@@ -50,7 +53,13 @@ export default function TermsScreen({ navigation }: any) {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          {
+            paddingVertical: isMobile ? 20 : 50,
+            paddingHorizontal: isMobile ? 14 : 20,
+          },
+        ]}
       >
         <View
           style={[
@@ -58,13 +67,14 @@ export default function TermsScreen({ navigation }: any) {
             {
               backgroundColor: theme.card,
               borderColor: theme.border,
+              padding: isMobile ? 18 : 35,
             },
           ]}
         >
           <Text
             style={[
               styles.title,
-              { color: theme.primary },
+              { color: theme.primary, fontSize: isMobile ? 26 : 36 },
             ]}
           >
             Terms & Conditions

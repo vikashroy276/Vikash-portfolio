@@ -14,6 +14,8 @@ import HomeScreen from './src/screens/HomeScreen';
 import PrivacyPolicyScreen from './src/screens/PrivacyPolicyScreen';
 import TermsScreen from './src/screens/TermsScreen';
 
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 import {
   ThemeProviderCustom,
 } from './src/context/ThemeContext';
@@ -22,8 +24,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <ThemeProviderCustom>
-      <NavigationContainer>
+    <SafeAreaProvider>
+      <ThemeProviderCustom>
+        <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{
@@ -46,6 +49,7 @@ export default function App() {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeProviderCustom>
+      </ThemeProviderCustom>
+    </SafeAreaProvider>
   );
 }

@@ -1,9 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -14,327 +9,269 @@ import {
   Pressable,
 } from 'react-native';
 
-import {
-  FaGithub,
-  FaFolderOpen,
-  FaExternalLinkAlt,
-} from 'react-icons/fa';
-
-import {
-  useThemeCustom,
-} from '../context/ThemeContext';
-
+import { useThemeCustom } from '../context/ThemeContext';
+import { useResponsive } from '../hooks/useResponsive';
 import { projects } from '../data/projects';
+import AppIcon from './common/AppIcon';
 
 /* PROJECT CARD */
-
 function ProjectCard({
   item,
   theme,
-}: any) {
+  cardWidth,
+  isMobile,
+}: {
+  item: any;
+  theme: any;
+  cardWidth: any;
+  isMobile: boolean;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const featured = item.featured;
 
-  const [hovered, setHovered] =
-    useState(false);
-
-  const featured =
-    item.featured;
+  const handleOpenLink = (url?: string) => {
+    if (url) {
+      Linking.openURL(url);
+    } else if (item.github) {
+      Linking.openURL(item.github);
+    }
+  };
 
   return (
     <Pressable
-
-      onHoverIn={() =>
-        setHovered(true)
-      }
-
-      onHoverOut={() =>
-        setHovered(false)
-      }
-
+      onHoverIn={() => setHovered(true)}
+      onHoverOut={() => setHovered(false)}
       style={[
         styles.card,
         {
-          backgroundColor:
-            hovered
-              ? '#0d3b2e'
-              : featured
-                ? theme.primary
-                : theme.card,
-
+          width: cardWidth,
+          minHeight: isMobile ? 260 : 340,
+          padding: isMobile ? 18 : 22,
+          backgroundColor: hovered
+            ? '#0d3b2e'
+            : featured
+              ? theme.primary
+              : theme.card,
           transform: [
             {
-              scale:
-                hovered
-                  ? 1.04
-                  : featured
-                    ? 1.02
-                    : 1,
+              scale: hovered ? 1.03 : featured ? 1.01 : 1,
             },
           ],
         },
       ]}
     >
-
-      {/* TOP */}
-
+      {/* TOP ICONS ROW */}
       <View style={styles.topRow}>
-
-        <FaFolderOpen
-          size={34}
-          color="#00ff88"
-        />
+        <AppIcon name="folder" size={isMobile ? 28 : 34} color="#00ff88" />
 
         <TouchableOpacity
-          onPress={() =>
-            Linking.openURL(
-              item.github
-            )
-          }
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          onPress={() => Linking.openURL(item.github)}
+          accessibilityLabel={`View ${item.title} on GitHub`}
         >
-
-          <FaGithub
-            size={30}
-            color={
-              hovered
-                ? '#00ff88'
-                : featured
-                  ? '#111'
-                  : '#00ff88'
-            }
+          <AppIcon
+            name="github"
+            size={isMobile ? 24 : 28}
+            color={hovered ? '#00ff88' : featured ? '#111111' : '#00ff88'}
           />
-
         </TouchableOpacity>
-
       </View>
 
-      {/* TITLE */}
-
-      <Text
-        style={[
-          styles.projectTitle,
-          {
-            color:
-              hovered
+      {/* CONTENT */}
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Text
+          style={[
+            styles.projectTitle,
+            {
+              fontSize: isMobile ? 19 : 23,
+              marginTop: isMobile ? 14 : 20,
+              marginBottom: isMobile ? 10 : 14,
+              color: hovered
                 ? '#ffffff'
                 : featured
                   ? '#ffffff'
                   : theme.text,
-          },
-        ]}
-      >
-        {item.title}
-      </Text>
+            },
+          ]}
+        >
+          {item.title}
+        </Text>
 
-      {/* DESCRIPTION */}
-
-      <Text
-        style={[
-          styles.description,
-          {
-            color:
-              hovered
+        <Text
+          style={[
+            styles.description,
+            {
+              fontSize: isMobile ? 14 : 15.5,
+              lineHeight: isMobile ? 22 : 26,
+              color: hovered
                 ? '#d6fff1'
                 : featured
                   ? '#ffffff'
                   : theme.subText,
-          },
-        ]}
-      >
-        {item.description}
-      </Text>
+            },
+          ]}
+        >
+          {item.description}
+        </Text>
 
-      <Text
-        style={[
-          styles.tech,
-          {
-            color:
-              hovered
-                ? '#00ff88'
-                : theme.primary,
-          },
-        ]}
-      >
-        {item.tech}
-      </Text>
+        <Text
+          style={[
+            styles.tech,
+            {
+              fontSize: isMobile ? 12.5 : 13.5,
+              color: hovered ? '#00ff88' : theme.primary,
+            },
+          ]}
+        >
+          {item.tech}
+        </Text>
+      </View>
 
-      {/* LINK */}
-
+      {/* LINK BUTTON */}
       <TouchableOpacity
         style={styles.linkRow}
-         onPress={() =>
-    Linking.openURL(item.url)
-  }
+        onPress={() => handleOpenLink(item.url)}
       >
-
         <Text
           style={[
             styles.viewText,
             {
-              color:
-                hovered
-                  ? '#00ff88'
-                  : featured
-                    ? '#ffffff'
-                    : '#00ff88',
+              fontSize: isMobile ? 14 : 15,
+              color: hovered ? '#00ff88' : featured ? '#ffffff' : '#00ff88',
             },
           ]}
         >
           View Project
         </Text>
-
-        <FaExternalLinkAlt
-          size={13}
-          color={
-            hovered
-              ? '#00ff88'
-              : featured
-                ? '#ffffff'
-                : '#00ff88'
-          }
+        <AppIcon
+          name="external"
+          size={12}
+          color={hovered ? '#00ff88' : featured ? '#ffffff' : '#00ff88'}
         />
-
       </TouchableOpacity>
-
     </Pressable>
   );
 }
 
 export default function Projects() {
-
   const { theme } = useThemeCustom();
+  const { isMobile, isTablet } = useResponsive();
 
-  const fadeAnim = useRef(
-    new Animated.Value(0)
-  ).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 1200,
+      duration: 1000,
       useNativeDriver: true,
     }).start();
-
   }, []);
 
+  const cardWidth = isMobile ? '100%' : isTablet ? '48%' : '31.5%';
+
   return (
-    <View nativeID="projects"
+    <View
+      nativeID="projects"
       style={[
         styles.container,
         {
-          backgroundColor:
-            theme.background,
+          backgroundColor: theme.background,
+          paddingHorizontal: isMobile ? 16 : 50,
         },
       ]}
     >
-
-      {/* TITLE */}
-
+      {/* SECTION HEADING */}
       <Text
         style={[
           styles.heading,
           {
             color: theme.text,
+            fontSize: isMobile ? 30 : 46,
+            marginBottom: isMobile ? 24 : 44,
           },
         ]}
       >
-        My Projects
+        Featured Projects
       </Text>
 
-      {/* PROJECT ROW */}
-
+      {/* PROJECT GRID */}
       <Animated.View
         style={[
           styles.projectsRow,
           {
             opacity: fadeAnim,
+            gap: isMobile ? 16 : 24,
           },
         ]}
       >
-
         {projects.map((item, index) => (
           <ProjectCard
             key={index}
             item={item}
             theme={theme}
+            cardWidth={cardWidth}
+            isMobile={isMobile}
           />
         ))}
-
       </Animated.View>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
-    paddingHorizontal: 50,
-    paddingTop: 20,
-    paddingBottom: 50,
+    paddingTop: 10,
+    paddingBottom: 30,
+    width: '100%',
   },
-
   heading: {
-    fontSize: 48,
     fontWeight: '900',
     textAlign: 'center',
-    marginBottom: 50,
+    letterSpacing: 0.5,
   },
-
-  tech: {
-    fontSize: 14,
-    fontWeight: '700',
-    marginTop: 20,
-    lineHeight: 24,
-  },
-
   projectsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'stretch',
     flexWrap: 'wrap',
-    gap: 25,
+    width: '100%',
   },
-
   card: {
-    width: '30%',
-    minHeight: 360,
-    borderRadius: 22,
-    padding: 22,
+    borderRadius: 20,
     justifyContent: 'space-between',
     shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 18,
-    elevation: 8,
+    shadowOpacity: 0.2,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.06)',
   },
-
   topRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   projectTitle: {
-    fontSize: 24,
     fontWeight: '800',
-    marginTop: 24,
-    marginBottom: 18,
   },
-
   description: {
-    fontSize: 16,
-    lineHeight: 30,
+    marginBottom: 12,
   },
-
+  tech: {
+    fontWeight: '700',
+    lineHeight: 20,
+    marginTop: 6,
+  },
   linkRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginTop: 30,
+    gap: 8,
+    marginTop: 18,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.06)',
   },
-
   viewText: {
-    fontSize: 15,
     fontWeight: '700',
   },
-
 });
