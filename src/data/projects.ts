@@ -40,6 +40,19 @@ export const projects = [
   },
 
   {
+    title: 'Indus ASN',
+
+    description:
+      'Developed an Android application for QR-based item tracking, packing, and package linking with ASN (Advance Shipping Notice), supporting dispatch operations across inbound and outbound processes.',
+
+    tech:
+      'Kotlin • Jetpack Compose • MVVM • Hilt • Coroutines • StateFlow • Retrofit • QR Code',
+
+    github:
+      'https://github.com/vikashroy276',
+  },
+
+  {
     title: 'Bluetooth Track Management System',
 
     description:

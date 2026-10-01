@@ -41,6 +41,12 @@ export default function Contact() {
       return;
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
+      showAlert('Notice', 'Please enter a valid email address.');
+      return;
+    }
+
     setLoading(true);
 
     emailjs
@@ -48,9 +54,16 @@ export default function Contact() {
         'service_68yz15k',
         'template_qdzecwq',
         {
-          user_name: name,
-          user_email: email,
-          message: message,
+          name: name.trim(),
+          user_name: name.trim(),
+          from_name: name.trim(),
+          email: email.trim(),
+          user_email: email.trim(),
+          from_email: email.trim(),
+          reply_to: email.trim(),
+          to_email: 'vikashroy276@gmail.com',
+          to_name: 'Vikash Kumar',
+          message: message.trim(),
         },
         '7ye9XWzR-I2km-7qM'
       )
