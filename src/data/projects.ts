@@ -1,6 +1,22 @@
 export const projects = [
 
   {
+    title: 'Tic Tac Toe',
+
+    description:
+      'Classic strategy game published on Google Play featuring Pass & Play mode, intelligent AI with multiple difficulty levels, offline gameplay, and responsive modern UI.',
+
+    tech:
+      'Kotlin • Jetpack Compose • MVVM • Clean Architecture • Material Design',
+
+    url:
+      'https://play.google.com/store/apps/details?id=com.roy.tictoe',
+
+    playStore:
+      'https://play.google.com/store/apps/details?id=com.roy.tictoe',
+  },
+
+  {
     title: 'Tata Steel RFID System',
 
     description:
@@ -115,18 +131,5 @@ export const projects = [
     tech: 'Kotlin • Bluetooth Manager,Coroutines & Flow, Zebra SDK,Barcode Scanner Integration,Zebra SDK ',
 
     github: 'https://github.com/vikashroy276'
-  },
-  {
-
-    title: 'Nippon Inventory Management System',
-
-    description: 'Built an Android-based inventory verification system that imports CSV files into a local Room database, generates registration validation codes, verifies PO numbers through QR scanning, stores transaction data offline, and syncs validated records to remote servers using Retrofit.',
-
-    tech: ' jetpack compose , hilt , Room Database, MVVM Architecture',
-
-    github: 'https://github.com/vikashroy276'
-
   }
-
-
 ];

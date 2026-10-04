@@ -28,12 +28,14 @@ function ProjectCard({
 }) {
   const [hovered, setHovered] = useState(false);
   const featured = item.featured;
+  const isPlayStore =
+    Boolean(item.playStore) ||
+    (typeof item.url === 'string' && item.url.includes('play.google.com'));
 
   const handleOpenLink = (url?: string) => {
-    if (url) {
-      Linking.openURL(url);
-    } else if (item.github) {
-      Linking.openURL(item.github);
+    const targetUrl = url || item.playStore || item.github;
+    if (targetUrl) {
+      Linking.openURL(targetUrl);
     }
   };
 
@@ -64,17 +66,35 @@ function ProjectCard({
       <View style={styles.topRow}>
         <AppIcon name="folder" size={isMobile ? 28 : 34} color="#00ff88" />
 
-        <TouchableOpacity
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-          onPress={() => Linking.openURL(item.github)}
-          accessibilityLabel={`View ${item.title} on GitHub`}
-        >
-          <AppIcon
-            name="github"
-            size={isMobile ? 24 : 28}
-            color={hovered ? '#00ff88' : featured ? '#111111' : '#00ff88'}
-          />
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          {isPlayStore && (
+            <TouchableOpacity
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              onPress={() => Linking.openURL(item.playStore || item.url)}
+              accessibilityLabel={`View ${item.title} on Google Play`}
+            >
+              <AppIcon
+                name="googleplay"
+                size={isMobile ? 22 : 26}
+                color={hovered ? '#00ff88' : featured ? '#111111' : '#00ff88'}
+              />
+            </TouchableOpacity>
+          )}
+
+          {item.github && (
+            <TouchableOpacity
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              onPress={() => Linking.openURL(item.github)}
+              accessibilityLabel={`View ${item.title} on GitHub`}
+            >
+              <AppIcon
+                name="github"
+                size={isMobile ? 24 : 28}
+                color={hovered ? '#00ff88' : featured ? '#111111' : '#00ff88'}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       {/* CONTENT */}
@@ -130,7 +150,7 @@ function ProjectCard({
       {/* LINK BUTTON */}
       <TouchableOpacity
         style={styles.linkRow}
-        onPress={() => handleOpenLink(item.url)}
+        onPress={() => handleOpenLink(item.playStore || item.url)}
       >
         <Text
           style={[
@@ -141,11 +161,11 @@ function ProjectCard({
             },
           ]}
         >
-          View Project
+          {isPlayStore ? 'Play Store' : 'View Project'}
         </Text>
         <AppIcon
-          name="external"
-          size={12}
+          name={isPlayStore ? 'googleplay' : 'external'}
+          size={isPlayStore ? (isMobile ? 14 : 16) : 12}
           color={hovered ? '#00ff88' : featured ? '#ffffff' : '#00ff88'}
         />
       </TouchableOpacity>
